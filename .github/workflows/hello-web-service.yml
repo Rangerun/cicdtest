@@ -1,0 +1,23 @@
+ name: Go Hello Web Service
+
+  on: [push]
+
+  jobs:
+    build-and-run:
+      runs-on: ubuntu-latest
+
+      steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.18'
+
+      - name: Build the web service
+        run: |
+          go build -o hello ./cmd/hello
+
+      - name: Run the web service
+        run: |
+          docker run -p 8080:8080 hello
